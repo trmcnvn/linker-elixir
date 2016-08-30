@@ -19,7 +19,7 @@ defmodule Linker.LinkController do
   end
 
   def show(conn, %{"id" => id}) do
-    link = Repo.get!(Link, id)
+    link = Repo.one!(from l in Link, where: l.short_id == ^id)
     conn
     |> put_resp_header("location", link.external_url)
     |> send_resp(:found, "")
